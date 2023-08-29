@@ -100,6 +100,7 @@ func readSubdomainsFromFile(filename string) ([]string, error) {
 }
 
 func resolveWithTimeout(domain string, timeout time.Duration) ([]string, error) {
+	// Initialize the ips slice
 	var ips []string
 
 	// Resolve the domain to an IP address with a timeout
@@ -119,9 +120,8 @@ func resolveWithTimeout(domain string, timeout time.Duration) ([]string, error) 
 		return nil, err
 	}
 
-	for _, address := range addresses {
-		ips = append(ips, address)
-	}
+	// Append all addresses to the ips slice
+	ips = append(ips, addresses...)
 
 	return ips, nil
 }
