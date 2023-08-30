@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subdomain Enumeration</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <h1>Subdomain Enumeration</h1>
     
-    <form id="subdomainForm">
+    <form id="subdomainForm" method="post" action="/enumerate">
         <label for="domain">Domain:</label>
         <input type="text" id="domain" name="domain" required>
         <label for="concurrency">Concurrency:</label>
@@ -19,36 +20,5 @@
     <div id="results">
         <!-- Subdomain enumeration results will be displayed here -->
     </div>
-
-    <script>
-        document.getElementById("subdomainForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const domain = document.getElementById("domain").value;
-            const concurrency = document.getElementById("concurrency").value;
-            
-            // Use a relative path for the fetch
-            fetch("/enumerate", {
-                method: "POST",
-                body: new URLSearchParams({ domain, concurrency }),
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                const resultsDiv = document.getElementById("results");
-                resultsDiv.innerHTML = "<h2>Enumeration Results</h2>";
-                
-                if (data.error) {
-                    resultsDiv.innerHTML += `<p>Error: ${data.error}</p>`;
-                } else {
-                    data.results.forEach(result => {
-                        resultsDiv.innerHTML += `<p>Subdomain: ${result.Subdomain}</p>`;
-                        resultsDiv.innerHTML += `<p>IPs: ${result.IPs.join(", ")}</p>`;
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>

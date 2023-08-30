@@ -10,22 +10,29 @@ import (
 	"time"
 )
 
-// SubdomainResult represents the result of subdomain enumeration.
 type SubdomainResult struct {
 	Subdomain string
 	IPs       []string
 }
 
-// EnumerateSubdomains enumerates subdomains for a given domain using the provided concurrency.
 func EnumerateSubdomains(domain string, concurrency int) ([]SubdomainResult, error) {
 	predefinedSubdomains := []string{
 		"www",
 		"mail",
 		"ftp",
+		"admin",
+		"blog",
+		"api",
+		"app",
+		"dev",
+		"stage",
+		"test",
+		"secure",
+		"support",
+		"forum",
 		// Add more predefined subdomains here
 	}
 
-	// Read custom subdomains from the text file
 	customSubdomains, err := readSubdomainsFromFile("2m-subdomains.txt")
 	if err != nil {
 		return nil, err
@@ -33,26 +40,22 @@ func EnumerateSubdomains(domain string, concurrency int) ([]SubdomainResult, err
 
 	subdomains := append(predefinedSubdomains, customSubdomains...)
 
-	// Create a channel for results
 	resultChannel := make(chan SubdomainResult)
 
-	// Create a WaitGroup to wait for all workers to finish
 	var wg sync.WaitGroup
 
-	// Create a semaphore to limit the number of concurrent workers
 	sem := make(chan struct{}, concurrency)
 
-	// Launch Goroutines for subdomain enumeration
 	for _, subdomain := range subdomains {
 		sem <- struct{}{} // Acquire semaphore
 		wg.Add(1)
 		go func(subdomain string) {
+			target := subdomain + "." + domain // Declare "target" within the Goroutine's scope
 			defer func() {
 				<-sem // Release semaphore
 				wg.Done()
 			}()
 
-			target := subdomain + "." + domain
 			ips, err := resolveWithTimeout(target, 2*time.Second) // Set a timeout
 			if err == nil && len(ips) > 0 {
 				result := SubdomainResult{
