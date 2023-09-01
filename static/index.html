@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subdomain Enumeration</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Subdomain Enumeration Tool</title>
+    <link rel="stylesheet" href="/static/style.css"> <!-- Include your CSS file here -->
 </head>
 <body>
-    <h1>Subdomain Enumeration</h1>
-    
-    <form id="subdomainForm" method="post" action="/enumerate">
+    <h1>Subdomain Enumeration Tool</h1>
+    <form id="enumeration-form">
         <label for="domain">Domain:</label>
-        <input type="text" id="domain" name="domain" required>
+        <input type="text" id="domain" name="domain" required><br><br>
         <label for="concurrency">Concurrency:</label>
-        <input type="number" id="concurrency" name="concurrency" value="10" min="1" required>
+        <input type="number" id="concurrency" name="concurrency" required><br><br>
         <button type="submit">Enumerate Subdomains</button>
     </form>
     
-    <div id="results">
-        <!-- Subdomain enumeration results will be displayed here -->
+    <!-- Result Box -->
+    <div class="result-box">
+        <h2>Enumeration Results</h2>
+        <ul id="results">
+            <!-- Results will be displayed here -->
+        </ul>
     </div>
+    
+    <script src="/static/script.js"></script>
 </body>
 </html>

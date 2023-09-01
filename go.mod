@@ -1,4 +1,4 @@
-module subfinderv2
+module subfinder.tool
 
 go 1.21.0
 

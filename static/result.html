@@ -3,26 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Subdomain Enumeration Results</title>
-    <link rel="stylesheet" href="/static/styles.css"> <!-- Include your CSS file -->
 </head>
 <body>
     <h1>Subdomain Enumeration Results</h1>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Subdomain</th>
-                <th>IP Addresses</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ range . }}
-            <tr>
-                <td>{{ .Subdomain }}</td>
-                <td>{{ joinStrings .IPs ", " }}</td> <!-- Use the custom function to join IPs -->
-            </tr>
-            {{ end }}
-        </tbody>
-    </table>
+    <ul>
+        {{range .}}
+            <li>{{ . }}</li>
+        {{end}}
+    </ul>
 </body>
 </html>
