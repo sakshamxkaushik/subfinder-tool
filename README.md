@@ -32,7 +32,7 @@ To get started with the Subdomain Enumeration Tool, follow these steps:
 
 Here's an overview of the project's architecture:
 
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](arch.drawio.png)
 
 - **Frontend**: The user interacts with the tool through a frontend interface, making it accessible and user-friendly.
 
